@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/nativize.css">
+  <link rel="stylesheet" href="assets/css/global.css">
+  <link rel="stylesheet" href="assets/css/about.css">
+  <link rel="stylesheet" href="assets/css/nav.css">
+  <link rel="stylesheet" href="assets/css/section.css">
+  <link rel="stylesheet" href="assets/css/demo.css">
+  <link rel="stylesheet" href="assets/css/github.css">
+
+  <link rel="import" href="sections/listasocios.html">
+  <link rel="import" href="sections/buscarsocio.html">
+  <link rel="import" href="sections/actividades.html">
+  <link rel="import" href="sections/actividades/boxeo.html">
+  <link rel="import" href="sections/actividades/futbol.html">
+  <link rel="import" href="sections/actividades/gim-recreativa.html">
+  <link rel="import" href="sections/actividades/gim-ritmica.html">
+  <link rel="import" href="sections/actividades/judo.html">
+  
+</head>
+<body>
+
+  <nav class="nav js-nav">
+    <header class="nav-header">
+      <h1 class="nav-title">SISTEMA DE GESTION</h1>
+      <h1 class="nav-title"><strong>CLUB ARGENTINO</strong></h1>
+      <img class="nav-header-icon" src="assets/img/logoClub.png" alt="logo del club"></img>
+    </header>
+
+    <div class="nav-item u-category-windows">
+      <h5 class="nav-category">
+        <svg class="nav-icon"><use xlink:href="assets/img/icons.svg#icon-windows"></use></svg>
+        SOCIOS
+      </h5>
+      <button type="button" id="button-listasocios" data-section="listasocios" class="nav-button">Lista de <em>socios</em></button>
+      <button type="button" id="button-buscarsocio" data-section="buscarsocio" class="nav-button">Buscar <em>socio</em></button>
+    </div>
+
+    <div class="nav-item u-category-menu" id="nav-actividades">
+      <h5 class="nav-category">
+        <svg class="nav-icon"><use xlink:href="assets/img/icons.svg#icon-menu"></use></svg>
+        Actividades
+      </h5>
+        <button type="button" id="button-listaactividades" data-section="actividades" class="nav-button">Panel de <em>Actividades</em></button>
+        <button type="button" id="button-boxeo" class="nav-button sub-button" data-section="boxeo"><em>Boxeo</em></button>
+        <button type="button" id="button-futbol" class="nav-button sub-button" data-section="futbol"><em>Futbol</em></button>
+        <button type="button" id="button-gim-recreativa" class="nav-button sub-button" data-section="gim-recreativa"><em>Gimnasia Ritmica</em></button>
+        <button type="button" id="button-gim-ritmica" class="nav-button sub-button" data-section="gim-ritmica"><em>Gimnasia Recreativa</em></button>
+        <button type="button" id="button-judo" class="nav-button sub-button" data-section="judo"><em>Judo</em></button>
+    </div>
+    <!-- 
+    <div class="nav-item u-category-native-ui">
+      <h5 class="nav-category">
+        <svg class="nav-icon"><use xlink:href="assets/img/icons.svg#icon-native-ui"></use></svg>
+        Native User Interface</h5>
+    </div>
+
+    <div class="nav-item u-category-communication">
+      <h5 class="nav-category">
+        <svg class="nav-icon"><use xlink:href="assets/img/icons.svg#icon-communication"></use></svg>
+        Communication
+      </h5>
+    </div>
+
+    <div class="nav-item u-category-system">
+      <h5 class="nav-category">
+        <svg class="nav-icon"><use xlink:href="assets/img/icons.svg#icon-system"></use></svg>
+        System
+      </h5>
+    </div>
+
+    <div class="nav-item u-category-media">
+      <h5 class="nav-category">
+        <svg class="nav-icon"><use xlink:href="assets/img/icons.svg#icon-media"></use></svg>
+        Media
+      </h5>
+    </div>
+  -->
+    <footer class="nav-footer">
+    </footer>
+  </nav>
+
+  <main class="content js-content"></main>
+
+  <script>
+    require('./assets/imports')
+    require('./assets/ex-links')
+    require('./assets/nav')
+    require('./assets/demo-btns')
+    require('./assets/normalize-shortcuts')
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<template class="task-template">
+  
+    <section id="buscarsocio-section" class="section js-section u-category-windows">
+      <style>
+          tr:hover {background-color: #f5f5f5;}
+      </style>
+        <header class="section-header">
+        <div class="section-wrapper">
+            <h1>Buscar socio</h1>
+        </div>
+      </header>
+      <div class="demo-controls">
+        <h3 style="margin: 5px">Ingresar Nombre/Dni :</h3>
+        <input type="text" id="nombre-buscado" placeholder="buscar">
+      </div>
+      <div id="socio-encontrado"></div>
+          
+          
+          <script type="text/javascript">
+            require('./renderer-process/buscarsocio')
+          </script>
+    </section>
+    
+  </template>

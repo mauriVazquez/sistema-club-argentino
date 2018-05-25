@@ -1,0 +1,258 @@
+<style>
+	body {
+		font-family: system, '.SFNSText-Regular', 'SF UI Text', 'Lucida Grande', 'Segoe UI', 'sans-serif';
+		color: #fff;
+		background-color: #8aba87;
+		text-align: center;
+	}
+
+	h1 {
+		text-transform: uppercase;
+		font-size: 20px;
+	}
+
+	#close {
+		color: white;
+		opacity: 0.7;
+		position: absolute;
+		bottom: 20px;
+		left: 50%;
+		margin-top: 8px;
+		transform: translateX(-50%);
+		font-size: 17px;
+		text-decoration: none;
+	}
+
+	#btnAgregar {
+		margin-top: 15px;
+		border: 2px solid;
+		border-radius: 4px;
+		font: inherit;
+		font-size: 1.2em;
+		padding: .4em 1.2em;
+		color: inherit;
+		align-self: center;
+		background-color: hsl(116, 29%, 33%);
+		;
+	}
+
+	#divButton {
+		align-items: center;
+	}
+
+	#btnAgregar:focus {
+		outline: none;
+		background-color: hsl(116, 30%, 36%);
+	}
+
+	#btnAgregar:active {
+		border-color: var(--color-border);
+	}
+
+	select {
+		padding: 8px 49px;
+		margin-top: 8px;
+		border: none;
+		border-radius: 4px;
+		background-color: #f1f1f1;
+	}
+
+	input {
+		margin-top: 10px;
+		padding: 8px 5px;
+		border-radius: 4px;
+		border: none;
+	}
+</style>
+
+<body>
+	<div>
+		<h1>Añadir un nuevo socio</h1>
+	</div>
+	<div>
+		<form>
+			<div>
+				<input type="text" placeholder="DNI" id="textDni">
+			</div>
+			<div>
+				<input type="text" placeholder="Nombre" id="textNombre">
+			</div>
+			<div>
+				<input type="text" placeholder="Apellido" id="textApellido">
+			</div>
+			<div>
+				<input type="radio" name="sexo" value="Hombre" id="checkHombre"> Hombre
+				<input type="radio" name="sexo" value="Mujer" id="checkMujer"> Mujer
+			</div>
+			<div>
+				Fecha de nacimiento:
+			</div>
+			<div>
+				<input type="date" style=" width: 181px" id="fechaNac">
+			</div>
+			<div>
+				<select aria-label="Categoria" id="selectCategoria">
+					<option value="">Categoria</option>
+					<option value="1">Honorario</option>
+					<option value="2">Activo</option>
+					<option value="3">Cadete</option>
+				</select>
+			</div>
+			<div>
+				<input type="text" placeholder="Domicilio" id="textDomicilio">
+			</div>
+			<div>
+				<input type="tel" placeholder="Telefono" id="textTelefono">
+			</div>
+			<div id="divButton">
+				<input type="button" value="Agregar Socio" id="btnAgregar">
+			</div>
+
+		</form>
+	</div>
+	<a id="close" href="javascript:window.close()">Cerrar ventana</a>
+	<script>
+
+		const { BrowserWindow } = require('electron').remote
+		const guardarSocioBtn = document.getElementById("btnAgregar");
+		if (guardarSocioBtn != null) {
+			console.log("encontre el boton");
+			guardarSocioBtn.addEventListener('click', (event) => {
+
+				if (datosCorrectos()) {
+
+					const mysql = require('mysql');
+
+					var connection = mysql.createConnection({
+						host: 'localhost',
+						user: 'root',
+						password: 'admin',
+						database: 'clubargentino'
+					});
+
+					connection.connect(function (err) {
+
+						// in case of error
+						if (err) {
+							console.log(err.code);
+							console.log(err.fatal);
+						} else {
+							console.log("conexion realizada dentro de la nueva ventana");
+						}
+					});
+					//funcion callback, esta funcion se ejecuta cuando es llamada dentro de ConsultaNumSocio(linea 208),
+					//asi conseguimos que se ejecute la consulta para obtener el ultimo numero de socio antes de realizar el insert.
+					//si puede pasar que nroSocio no tenga un valor antes de que se ejecute el insert.
+					consultaNumSocio(function (NumeroCalculado) {
+
+						var nroSocio = NumeroCalculado;
+						var DNI = document.getElementById("textDni").value;
+						var Nombre = document.getElementById("textNombre").value;
+						var Apellido = document.getElementById("textApellido").value;
+						var Sexo = obtenerSexo();
+						var fechaNac = document.getElementById("fechaNac").value;
+						var Categoria = document.getElementById("selectCategoria").value;
+						var Domicilio = document.getElementById("textDomicilio").value;
+						var Telefono = document.getElementById("textTelefono").value;
+
+						var d = new Date();
+						var dia = d.getDate();
+						var mes = d.getMonth();
+						var year = d.getFullYear();
+						var diaInicio = year + "-" + mes + "-" + dia;
+
+						var Consulta = "INSERT INTO socios (`dni`, `nroSocio`, `nombre`, `apellido`, `sexo`, `fechaNac`, `categoria`, `inicio`, `domicilio`, `telefono`) VALUES ('" + DNI + "', '" + nroSocio + "', '" + Nombre + "', '" + Apellido + "', '" + Sexo + "', '" + fechaNac + "', '" + Categoria + "', '" + diaInicio + "', '" + Domicilio + "', '" + Telefono + "')";
+						console.log(Consulta);
+
+						var query = connection.query(Consulta, function (error, result) {
+
+							if (error) {
+								throw error;
+							} else {
+								alert("Datos cargados correctamente")
+								window.close();
+							}
+							connection.end();
+						});
+					});
+				} else {
+					alert("campos Incompletos o incorrectos");
+				}
+			})
+		}
+
+		function consultaNumSocio(EnviarNumero) {
+			const mysql = require('mysql');
+
+			var connection = mysql.createConnection({
+				host: 'localhost',
+				user: 'root',
+				password: 'admin',
+				database: 'clubargentino'
+			});
+			connection.connect(function (err) {
+				// in case of error
+				if (err) {
+					console.log(err.code);
+					console.log(err.fatal);
+				} else {
+					console.log("conexion realizada dentro de la funcion Consulta NumSocio");
+				}
+			});
+
+			var query = connection.query('SELECT nroSocio FROM socios ORDER by nroSocio DESC LIMIT 1', function (error, result) {
+
+				if (error) {
+					throw error;
+				} else {
+					console.log("resultado: " + result[0].nroSocio)
+					nroSocio = result[0].nroSocio;
+					nroSocio++;
+					EnviarNumero(nroSocio);
+				}
+			});
+
+			connection.end();
+		}
+
+		function obtenerSexo() {
+
+			var result;
+			if (document.getElementById("checkHombre").checked)
+				result = "Hombre";
+			else {
+				if (document.getElementById("checkMujer").checked) {
+					result = "Mujer"
+				}
+			}
+			return result;
+		}
+
+		function datosCorrectos() {
+
+			var datoscorrectos = true;
+			if (document.getElementById("textDni").value == "") {
+				datoscorrectos = false;
+			}
+			if (document.getElementById("textNombre").value == "") {
+				datoscorrectos = false;
+			}
+			if (document.getElementById("textApellido").value == "") {
+				datoscorrectos = false;
+			}
+			if (document.getElementById("textDomicilio").value == "") {
+				datoscorrectos = false;
+			}
+			if (document.getElementById("textTelefono").value == "") {
+				datoscorrectos = false;
+			}
+			if (document.getElementById("selectCategoria").value == "") {
+				datoscorrectos = false;
+			}
+			if (document.getElementById("fechaNac").value == "") {
+				datoscorrectos = false;
+			}
+			return datoscorrectos;
+		}
+	</script>
+</body>

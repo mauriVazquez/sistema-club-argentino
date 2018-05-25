@@ -1,0 +1,32 @@
+<template class="task-template">
+        <section id="listasocios-section" class="section js-section u-category-windows">
+          <header class="section-header">
+            <div class="section-wrapper">
+                <h1>Lista de socios</h1>
+            </div>
+          </header>
+          <div class="demo-controls">
+            <button class="demo-button" id="agregar-socio">Agregar Socio</button>
+          </div>
+          <div id="tabla-socios">
+            <table id="tablaSocios">
+              <thead>
+                <th>DNI</th>
+                <th>Num Socio</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Genero</th>
+                <th>fecha Nacimiento</th>
+                <th>Categoria</th>
+                <th>Fecha Inicio</th>
+                <th>Domicilio</th>
+                <th>Telefono</th>
+              </thead>
+              <tbody id="tablabody"></tbody></table></div>
+              <script type="text/javascript">
+                require('./renderer-process/listarsocios')
+                require('./renderer-process/agregarsocio')
+              </script>
+        </section>
+        
+      </template>
