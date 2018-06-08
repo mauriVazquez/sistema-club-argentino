@@ -30,7 +30,7 @@ document.getElementById("button-listaactividades").addEventListener('click', (ev
         if (error) {
             throw error;
         } else {
-            console.log(actividades.length);
+            
 
             
             for (let i = 0; i < actividades.length; i++) {
@@ -44,6 +44,9 @@ document.getElementById("button-listaactividades").addEventListener('click', (ev
                         buttonAct.classList.add("button-actividad");
                         buttonAct.classList.add(actividades[i].icono);
                         buttonAct.setAttribute("id","button-"+actividades[i].nombre);
+                        buttonAct.addEventListener('click', (event) => {
+                            document.getElementById("button-"+actividades[i].icono).click();
+                        })
                     divAux.appendChild(buttonAct);
 
                 divDemoControls.appendChild(divAux);
@@ -78,3 +81,4 @@ document.getElementById("button-listaactividades").addEventListener('click', (ev
     
     connection.end();
 })
+

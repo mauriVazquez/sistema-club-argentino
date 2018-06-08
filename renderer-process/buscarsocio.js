@@ -51,9 +51,9 @@ datoAbuscar.addEventListener('input', (event) => {
                 if(error){
                 throw error;
                 }else{
-                console.log(consulta);    
+                    
                 var socios = result;
-                console.log("encontre algun registro con el patron");
+                
                 if(socios.length > 0 ){
 
                     var table = document.createElement("table");
@@ -94,10 +94,15 @@ datoAbuscar.addEventListener('input', (event) => {
                         
                         var tr = document.createElement("tr");
                         
-                        //NO FUNCIONA CORRECTAMENTE
                         tr.addEventListener('contextmenu', () => {
                             ipcRenderer.send('show-context-menu')
                             },false)
+
+                        tr.addEventListener('click', () => {
+                            
+                            
+                            
+                        },false)    
 
                         var td = document.createElement("td");
                         var NumSocio = document.createTextNode(socios[i].nroSocio);
