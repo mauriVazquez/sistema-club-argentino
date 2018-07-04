@@ -1,4 +1,4 @@
-<style>
+<!-- <style>
 	body {
 		font-family: system, '.SFNSText-Regular', 'SF UI Text', 'Lucida Grande', 'Segoe UI', 'sans-serif';
 		color: #fff;
@@ -65,7 +65,7 @@
 	}
 </style>
 
-<body>
+ <body>
 	<div>
 		<h1>Añadir un nuevo socio</h1>
 	</div>
@@ -255,4 +255,60 @@
 			return datoscorrectos;
 		}
 	</script>
-</body>
+</body> -->
+
+
+<template class="task-template">
+  
+    <section id="agregarsocio-section" class="section js-section u-category-windows">
+
+			<header class="section-header">
+					<div class="section-wrapper">
+						<h1>Agregar socio</h1>
+					</div>
+			</header>
+
+		<form>	
+			<div>
+				<input type="text" placeholder="DNI" id="textDni">
+			</div>
+			<div>
+				<input type="text" placeholder="Nombre" id="textNombre">
+			</div>
+			<div>
+				<input type="text" placeholder="Apellido" id="textApellido">
+			</div>
+			<div>
+				<input type="radio" name="sexo" value="Hombre" id="checkHombre"> Hombre
+				<input type="radio" name="sexo" value="Mujer" id="checkMujer"> Mujer
+			</div>
+			<div>
+				Fecha de nacimiento:
+			</div>
+			<div>
+				<input type="date" style=" width: 181px" id="fechaNac">
+			</div>
+			<div>
+				<select aria-label="Categoria" id="selectCategoria">
+					<option value="">Categoria</option>
+					<option value="1">Honorario</option>
+					<option value="2">Activo</option>
+					<option value="3">Cadete</option>
+				</select>
+			</div>
+			<div>
+				<input type="text" placeholder="Domicilio" id="textDomicilio">
+			</div>
+			<div>
+				<input type="tel" placeholder="Telefono" id="textTelefono">
+			</div>
+		</form>
+		<div class="demo-controls">
+				<button class="demo-button" id="agregar-socio">Agregar Socio</button>
+		</div>	
+	
+	<script type="text/javascript">
+		require('./renderer-process/agregarsocio');
+	</script>
+	</section>
+</template>
